@@ -27,13 +27,26 @@ window.onscroll = () => {
   });
   // sticky navbar
   let header = document.querySelector('header');
+  const scrolled = window.scrollY > 100;
 
-  header.classList.toggle('sticky', window.scrollY > 100);
+  header.classList.toggle('sticky', scrolled);
+  // when scrolled down (not at top), remove the big header class
+  header.classList.toggle('big', !scrolled);
 
   // remove toggle icon and navbar when click navbar link (scroll)
   menuIcon.classList.remove('bx-x');
   navbar.classList.remove('active');
 };
+
+// initialize header size on load
+window.addEventListener('load', () => {
+  const header = document.querySelector('header');
+  if (window.scrollY <= 100) {
+    header.classList.add('big');
+  } else {
+    header.classList.remove('big');
+  }
+});
 
 // wechat QR code popup out
 document.getElementById('icon-link').addEventListener('click', function(event){

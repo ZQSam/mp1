@@ -55,10 +55,16 @@ section {
   justify-content: space-between;
   align-items: center;
   z-index: 100;
+  transition: padding 200ms ease, background 200ms ease, border-color 200ms ease;
 }
 
 .header.sticky {
   border-bottom: 0.1rem solid rgba(0, 0, 0, 0.2);
+}
+
+/* Larger header when user is at the top/home section */
+.header.big {
+  padding: 3rem 9%;
 }
 
 .logo {
@@ -66,13 +72,24 @@ section {
   color: var(--text-color);
   font-weight: 600;
   cursor: default;
+  transition: font-size 200ms ease, transform 200ms ease;
+}
+
+.header.big .logo {
+  font-size: 3rem;
 }
 
 .navbar a {
-  font-size: 1.7rem;
+  /* smaller default navbar link size */
+  font-size: 1.5rem;
   color: var(--text-color);
+  margin-left: 3rem;
+  transition: color 200ms ease, font-size 200ms ease, margin 200ms ease;
+}
+
+.header.big .navbar a {
+  font-size: 1.8rem;
   margin-left: 4rem;
-  transition: 0.5s;
 }
 
 .navbar a:hover,
@@ -81,9 +98,15 @@ section {
 }
 
 #menu-icon {
-  font-size: 3.6rem;
+  /* smaller default menu icon */
+  font-size: 2.8rem;
   color: var(--text-color);
   display: none;
+  transition: font-size 200ms ease;
+}
+
+.header.big #menu-icon {
+  font-size: 3.6rem;
 }
 
 .home {
