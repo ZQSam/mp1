@@ -30,10 +30,8 @@ window.onscroll = () => {
   const scrolled = window.scrollY > 100;
 
   header.classList.toggle('sticky', scrolled);
-  // when scrolled down (not at top), remove the big header class
   header.classList.toggle('big', !scrolled);
 
-  // remove toggle icon and navbar when click navbar link (scroll)
   menuIcon.classList.remove('bx-x');
   navbar.classList.remove('active');
 };
@@ -89,8 +87,6 @@ toggle.addEventListener('click', () => {
     toggle.innerHTML = document.body.classList.contains('dark-mode') ? '<i class="bx bx-sun"></i>' : '<i class="bx bx-moon"></i>';
 });
 
-// smooth scroll
-// smooth scroll (ignore anchors with href '#' or missing targets)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
       const href = this.getAttribute('href');
@@ -103,3 +99,72 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       }
   });
 });
+
+// Lifestyles gallery / carousel logic
+const galleryOverlay = document.getElementById('lifestyles-gallery');
+const gallerySlides = document.querySelectorAll('#lifestyles-gallery .slide');
+const galleryDotsContainer = document.querySelector('#lifestyles-gallery .gallery-dots');
+let currentSlide = 0;
+
+function showSlide(index) {
+  if (!gallerySlides.length) return;
+  gallerySlides.forEach(s => s.classList.remove('active'));
+  const idx = (index + gallerySlides.length) % gallerySlides.length;
+  gallerySlides[idx].classList.add('active');
+  currentSlide = idx;
+  // update dots
+  if (galleryDotsContainer) {
+    Array.from(galleryDotsContainer.children).forEach((d,i) => d.classList.toggle('active', i === idx));
+  }
+}
+
+function openGallery() {
+  if (!galleryOverlay) return;
+  // append overlay to body so it behaves like the WeChat popup (fixed fullscreen)
+  if (galleryOverlay.parentNode !== document.body) document.body.appendChild(galleryOverlay);
+
+  galleryOverlay.classList.add('open');
+  galleryOverlay.setAttribute('aria-hidden', 'false');
+  // lock body scroll while gallery is open
+  document.body.style.overflow = 'hidden';
+  showSlide(0);
+}
+
+function closeGallery() {
+  if (!galleryOverlay) return;
+  galleryOverlay.classList.remove('open');
+  galleryOverlay.setAttribute('aria-hidden', 'true');
+  // restore scrolling
+  document.body.style.overflow = '';
+}
+
+// wire up Read More buttons
+document.querySelectorAll('.read-more').forEach(btn => {
+  btn.addEventListener('click', () => {
+    openGallery();
+  });
+});
+
+// arrows
+document.querySelectorAll('#lifestyles-gallery .gallery-arrow.left').forEach(btn => btn.addEventListener('click', () => showSlide(currentSlide - 1)));
+document.querySelectorAll('#lifestyles-gallery .gallery-arrow.right').forEach(btn => btn.addEventListener('click', () => showSlide(currentSlide + 1)));
+
+// close
+const closeBtn = document.querySelector('#lifestyles-gallery .gallery-close');
+if (closeBtn) closeBtn.addEventListener('click', closeGallery);
+
+// close when clicking the overlay background (but not when clicking the gallery container)
+if (galleryOverlay) {
+  galleryOverlay.addEventListener('click', function(e) {
+    if (e.target === galleryOverlay) closeGallery();
+  });
+}
+
+// build dots
+if (galleryDotsContainer && gallerySlides.length) {
+  gallerySlides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.addEventListener('click', () => showSlide(i));
+    galleryDotsContainer.appendChild(d);
+  });
+}

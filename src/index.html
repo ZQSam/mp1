@@ -69,6 +69,7 @@
       </div>
       <!-- <a href="#" class="btn">Download CV</a> -->
     </div>
+    <!-- Art Creator Gallery (moved into the lifestyles box) -->
 
     <div id="image-popup">
       <img src="./assets//wechatQRcode.JPG" alt="WeChat QR code">
@@ -119,13 +120,33 @@
         <!-- <a href="#" class="btn">Read More</a> -->
       </div>
 
-      <div class="lifestyles-box">
+      <div class="lifestyles-box" data-gallery="art">
         <i class='bx bxs-camera' ></i>
         <h3>Art Creator</h3>
         <p>
           Beyond programming, I am passionate about visual storytelling through photography and videography. 
           My creative projects allow me to experiment with different mediums and share compelling narratives.</p>
-        <!-- <a href="#" class="btn">Read More</a> -->
+        <!-- Read More opens the in-section gallery/carousel -->
+        <button class="btn read-more" data-gallery="art">Read More</button>
+        <!-- Art Creator Gallery (markup kept here for authoring) -->
+        <div id="lifestyles-gallery" class="gallery-overlay" aria-hidden="true">
+          <div class="gallery-container">
+            <button class="gallery-arrow left" aria-label="Previous slide">‹</button>
+            <div class="gallery-slides">
+              <div class="slide" data-index="0">
+                <img src="assets//scavengerHunt.jpg" alt="Slide 1">
+              </div>
+              <div class="slide" data-index="1">
+                <img src="assets//First Project Pic.jpg" alt="Slide 2">
+              </div>
+              <div class="slide" data-index="2">
+                <img src="assets//3.png" alt="Slide 3">
+              </div>
+            </div>
+            <button class="gallery-arrow right" aria-label="Next slide">›</button>
+          </div>
+          <div class="gallery-dots"></div>
+        </div>
       </div>
 
       <div class="lifestyles-box">
@@ -185,7 +206,7 @@
         </div>
       </div>
 
-      <div class="portfolio-box">
+      <!-- <div class="portfolio-box">
         <img src="assets//4.jpeg" alt="4">
         <div class="portfolio-layer">
           <h4>Project 4</h4>
@@ -210,7 +231,7 @@
           <p>Not available at this moment.</p>
           <a href="#"><i class='bx bx-link'></i></a>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 
