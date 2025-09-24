@@ -44,6 +44,27 @@ window.addEventListener('load', () => {
   } else {
     header.classList.remove('big');
   }
+  // background video fade-in when ready
+  const bgVideo = document.getElementById('home-bg-video');
+  if (bgVideo) {
+    const tryShow = () => {
+      bgVideo.play().catch(() => {});
+      setTimeout(() => bgVideo.classList.add('visible'), 700);
+    };
+
+    if (bgVideo.readyState >= 3) {
+      tryShow();
+    } else {
+      const onCanPlay = () => {
+        tryShow();
+        bgVideo.removeEventListener('canplay', onCanPlay);
+      };
+      bgVideo.addEventListener('canplay', onCanPlay);
+
+      // safety fallback: if 'canplay' never fires, still reveal after 3s
+      setTimeout(() => bgVideo.classList.add('visible'), 3000);
+    }
+  }
 });
 
 // wechat QR code popup out
