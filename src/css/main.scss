@@ -404,7 +404,24 @@ span {
 }
 
 .portfolio {
-  background: var(--second-bg-color);
+  background: var(--second-bg-color) url('../assets/bg-image.jpeg') center/cover no-repeat fixed;
+  position: relative;
+  color: var(--text-color);
+}
+
+
+.portfolio::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.portfolio .portfolio-container {
+  position: relative;
+  z-index: 1;
 }
 
 .portfolio h2 {
@@ -488,6 +505,24 @@ span {
 
 .contact {
   margin-bottom: 3rem;
+  background: var(--second-bg-color) url('../assets/bg-image.jpeg') center/cover no-repeat fixed;
+  position: relative;
+  color: var(--text-color);
+}
+
+.contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contact form,
+.contact .contact-inner {
+  position: relative;
+  z-index: 1; 
 }
 
 .contact form {
